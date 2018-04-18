@@ -8,7 +8,10 @@ public class Controller: MonoBehaviour
     RaycastHit hit;
     public Transform[] draggedElements;
     public float elementForce;
-    Vector3 prevPos;
+    Vector3 prevPos3;
+    Vector3 prevPos2;
+    Vector3 prevPos1;
+    Vector3 touchPos;
 
     void Update()
     {
@@ -37,29 +40,36 @@ public class Controller: MonoBehaviour
                     //If an element is selected
                     else
                     {
-                        //Convert the touch's screen pos to world pos
-                        Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+                        //Convert the touch's current screen pos to world pos
+                        touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+
+                        //Previous position
+
+                        prevPos3 = prevPos2;
+                        prevPos2 = prevPos1;
+                        prevPos1 = touchPos;
 
                         //The element follows the touch
                         draggedElements[i].position = new Vector3(touchPos.x, touchPos.y, draggedElements[i].position.z);
-
-                        prevPos = Input.GetTouch(i).position;
                     }
                 }
 
                 //If the touch is lifted and an element was selected
                 if (Input.GetTouch(i).phase == TouchPhase.Ended && draggedElements[i] != null)
                 {
-                    /*
-                    Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
-                    Vector3 direction = touchPos - prevPos;
+                    touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+
+                    //print("touchPos : " + touchPos);
+                    //print("prevPos : " + prevPos3);
+
+                    Vector3 direction = touchPos - prevPos3;
                     direction.z = 0f;
-                    print(touchPos);
+
+                    print(direction.magnitude);
 
                     //Give force
                     draggedElements[i].GetComponent<Rigidbody>().AddForce(direction * elementForce);
-                    */
-
+                    
                     //Unselect the element
                     draggedElements[i] = null;
                 }
