@@ -70,8 +70,8 @@ public class CharacterSelection : MonoBehaviour {
 		}
 
 		if (minXPanelNumber == 1) {
-			for(int u = 0; u<character2Skins.Length; u++){
-				char2Ydistances [u] = Mathf.Abs (center.transform.position.y - character2Skins[u].transform.position.y);
+			for(int v = 0; v<character2Skins.Length; v++){
+				char2Ydistances [v] = Mathf.Abs (center.transform.position.y - character2Skins[v].transform.position.y);
 			}
 			float minYdistance = Mathf.Min (char2Ydistances);
 
@@ -82,8 +82,8 @@ public class CharacterSelection : MonoBehaviour {
 			}
 		}
 		if (minXPanelNumber == 2) {
-			for(int u = 0; u<character3Skins.Length; u++){
-				char3Ydistances [u] = Mathf.Abs (center.transform.position.y - character3Skins[u].transform.position.y);
+			for(int w = 0; w<character3Skins.Length; w++){
+				char3Ydistances [w] = Mathf.Abs (center.transform.position.y - character3Skins[w].transform.position.y);
 			}
 			float minYdistance = Mathf.Min (char3Ydistances);
 
@@ -94,8 +94,8 @@ public class CharacterSelection : MonoBehaviour {
 			}
 		}
 		if (minXPanelNumber == 3) {
-			for(int u = 0; u<character4Skins.Length; u++){
-				char4Ydistances [u] = Mathf.Abs (center.transform.position.y - character4Skins[u].transform.position.y);
+			for(int o = 0; o<character4Skins.Length; o++){
+				char4Ydistances [o] = Mathf.Abs (center.transform.position.y - character4Skins[o].transform.position.y);
 			}
 			float minYdistance = Mathf.Min (char4Ydistances);
 
