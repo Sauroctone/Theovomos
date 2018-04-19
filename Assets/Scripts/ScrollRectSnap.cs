@@ -21,7 +21,6 @@ public class ScrollRectSnap : MonoBehaviour {
 		panelDistance = (int)Mathf.Abs(subPanels[1].GetComponent<RectTransform>().anchoredPosition.y - subPanels[0].GetComponent<RectTransform>().anchoredPosition.y);
 	}
 
-
 	void Update () {
 		for (int i = 0; i < subPanels.Length; i++) {
 			distances [i] = Mathf.Abs (center.transform.position.y - subPanels [i].transform.position.y);
