@@ -5,12 +5,42 @@ using UnityEngine;
 public class CombineManager : MonoBehaviour {
 
     public PlayerStates state;
+    public int health;
     Elements firstElement;
-    public SlotManager slot1;
-    public SlotManager slot2;
-    public SlotManager slot3;
-    public SlotManager slot4;
-    int fullSlots;
+    //public SlotManager slot1;
+    //public SlotManager slot2;
+    //public SlotManager slot3;
+    //public SlotManager slot4;
+
+    public SlotManager[] slots;
+    //int fullSlots;
+
+    void AddSpell(Spells _spell, Collider col)
+    {
+        firstElement = Elements.Null;
+
+        bool storedSpell = false;
+        foreach (SlotManager slot in slots)
+        {
+            if (slot.activeSpell == Spells.Null)
+            {
+                slot.AddSpell(_spell);
+                storedSpell = true;
+                break;
+            }
+        }
+
+        if (!storedSpell)
+        {
+            for (int i = slots.Length-1; i > 0; i--)
+            {
+                slots[i].AddSpell(slots[i - 1].activeSpell);
+            }
+            slots[0].AddSpell(_spell);
+        }
+
+        Destroy(col.gameObject);
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -27,38 +57,16 @@ public class CombineManager : MonoBehaviour {
                     break;
 
                 case Elements.Earth:
-                    //KABOOM
+                    Erupt();
                     Destroy(col.gameObject);
                     break;
 
                 case Elements.Air:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Lightning);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Lightning, col);
                     break;
 
                 case Elements.Water:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Convert);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Convert);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Convert);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Convert);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Convert, col);
                     break;
             }
         }
@@ -73,48 +81,15 @@ public class CombineManager : MonoBehaviour {
                     break;
 
                 case Elements.Fire:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Convert);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Convert);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Convert);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Convert);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Convert, col);
                     break;
 
                 case Elements.Earth:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Heal);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Heal);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Heal);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Heal);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Heal, col);
                     break;
 
                 case Elements.Air:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.IceWall);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.IceWall, col);
                     break;
 
                 case Elements.Water:
@@ -132,51 +107,18 @@ public class CombineManager : MonoBehaviour {
                     break;
 
                 case Elements.Fire:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Lightning);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Lightning);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Lightning, col);
                     break;
 
                 case Elements.Earth:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Tornado);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Tornado, col);
                     break;
 
                 case Elements.Air:
                     break;
 
                 case Elements.Water:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.IceWall);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.IceWall);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.IceWall, col);
                     break;
             }
         }
@@ -191,7 +133,7 @@ public class CombineManager : MonoBehaviour {
                     break;
 
                 case Elements.Fire:
-                    //KABOOM
+                    Erupt();
                     Destroy(col.gameObject);
                     break;
 
@@ -199,35 +141,31 @@ public class CombineManager : MonoBehaviour {
                     break;
 
                 case Elements.Air:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Tornado);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Tornado);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Tornado, col);
                     break;
 
                 case Elements.Water:
-                    if (fullSlots == 0 || fullSlots == 4)
-                        slot1.AddSpell(Spells.Heal);
-                    else if (fullSlots == 1)
-                        slot2.AddSpell(Spells.Heal);
-                    else if (fullSlots == 2)
-                        slot3.AddSpell(Spells.Heal);
-                    else if (fullSlots == 3)
-                        slot4.AddSpell(Spells.Heal);
-                    fullSlots++;
-                    if (fullSlots == 5)
-                        fullSlots = 0;
-                    Destroy(col.gameObject);
+                    AddSpell(Spells.Heal, col);
                     break;
             }
         }
+    }
+
+    public void UpdateHealth(int _healthMod)
+    {
+        health += _healthMod;
+
+        if (health == 0)
+        {
+            //mourir
+        }
+
+        //feedback en fonction de la vie
+    }
+
+    void Erupt()
+    {
+        UpdateHealth(-1);
+        firstElement = Elements.Null;
     }
 }

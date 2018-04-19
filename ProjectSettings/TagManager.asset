@@ -11,6 +11,8 @@ TagManager:
   - Slot
   - Altar_1
   - Altar_2
+  - IceWall
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Wall
   - Altar_1
   - Altar_2
-  - 
+  - IceWall
   - 
   - 
   - 

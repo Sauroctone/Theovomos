@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SlotManager : MonoBehaviour {
 
-    Spells activeSpell;
+    public Spells activeSpell;
+    bool concernedSlot;
 
     [Header("Lightning")]
     public float minSwipeDist; 
@@ -16,6 +17,9 @@ public class SlotManager : MonoBehaviour {
     public float lightningDelay;
     public float lightningLifetime;
     public float lightningInit;
+
+    [Header("Ice Wall")]
+    public float wallLifetime;
 
     [Header("References")]
     public SpriteRenderer rend;
@@ -29,6 +33,7 @@ public class SlotManager : MonoBehaviour {
     public GameObject lightningPart;
     public ScreenShakeGenerator shakeGen;
     public GameObject lightningBall;
+    public GameObject iceWall;
 
     void Update()
     {
@@ -37,9 +42,15 @@ public class SlotManager : MonoBehaviour {
             case PlayerStates.Normal:
                 break;
             case PlayerStates.Lightning:
-                if (activeSpell == Spells.Lightning)
+                if (activeSpell == Spells.Lightning && concernedSlot)
                 {
                     CheckLightning();
+                }
+                break;
+            case PlayerStates.IceWall:
+                if (activeSpell == Spells.IceWall && concernedSlot)
+                {
+                    CheckIceWall();
                 }
                 break;
         }
@@ -83,9 +94,11 @@ public class SlotManager : MonoBehaviour {
                 break;
             case Spells.IceWall:
                 altar.state = PlayerStates.IceWall;
+                concernedSlot = true;
                 break;
             case Spells.Lightning:
                 altar.state = PlayerStates.Lightning;
+                concernedSlot = true;
                 break;
             case Spells.Tornado:
                 altar.state = PlayerStates.Tornado;
@@ -103,6 +116,8 @@ public class SlotManager : MonoBehaviour {
 
     void Heal()
     {
+        altar.UpdateHealth(+1);
+        //feedback visuel;
         activeSpell = Spells.Null;
         rend.sprite = emptySpr;
     }
@@ -127,6 +142,25 @@ public class SlotManager : MonoBehaviour {
             }
 
             altar.state = PlayerStates.Normal;
+            concernedSlot = false;
+        }
+    }
+
+    void CheckIceWall()
+    {
+        Touch touch = Input.GetTouch(currentTouch);
+
+        if (touch.phase == TouchPhase.Ended)
+        {
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPos.z = -2;
+            GameObject wall = Instantiate(iceWall, touchPos, Quaternion.identity);
+            Destroy(wall, wallLifetime);
+
+            altar.state = PlayerStates.Normal;
+            concernedSlot = false;
+            activeSpell = Spells.Null;
+            rend.sprite = emptySpr;
         }
     }
 
@@ -150,7 +184,7 @@ public class SlotManager : MonoBehaviour {
         {
             if (Physics.Raycast(originPos, direction, out hit, 15f, lightningLayer))
             {
-                //Debug.DrawLine(originPos, direction * 15f, Color.red, 10f);                
+                Debug.DrawLine(originPos, direction * 15f, Color.red, 10f);                
                 //print(hit.collider.name);
 
                 GameObject lightning = Instantiate(lightningPart, originPos, Quaternion.LookRotation(Quaternion.Euler(0, 0, 90f) * direction)) as GameObject;
@@ -162,16 +196,25 @@ public class SlotManager : MonoBehaviour {
                 if (hit.collider.tag == "Altar_2")
                 {
                     touchedAltar = true;
-                    //feedback et perte de vie;
+                    altar.UpdateHealth(-1);
                 }
 
-                else
+
+                else if (hit.collider.tag == "IceWall")
+                {
+                    impacts = 3;
+                }
+
+                else if (hit.collider.tag == "Wall")
                 {
                     originPos = hit.point;
                     direction = Quaternion.Euler(0, 0, 90f) * direction;
                     yield return new WaitForSeconds(lightningDelay);
                 }
             }
+
+            else
+                impacts++;
         }
 
         lightningBall.SetActive(false);

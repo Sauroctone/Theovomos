@@ -1523,7 +1523,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834205705539328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5222658, z: 0.076234}
+  m_LocalPosition: {x: 0, y: -1.5222658, z: 1}
   m_LocalScale: {x: 8.699512, y: 1.5951092, z: 1.5856935}
   m_Children: []
   m_Father: {fileID: 4733620249881662}
@@ -1639,13 +1639,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2816cd0b3f9c9459e6009d38012e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
   minSwipeDist: 1
   lightningLayer:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 13312
   lightningDelay: 0.1
   lightningLifetime: 0.8
   lightningInit: 1.5
+  wallLifetime: 2
   rend: {fileID: 212140625045189480}
   healSpr: {fileID: 21300000, guid: dbf99a0146d97e84a8a9c48fa721f3b5, type: 3}
   convertSpr: {fileID: 21300000, guid: 3deeaf44621a88b4bb4afe111d51e646, type: 3}
@@ -1658,6 +1660,7 @@ MonoBehaviour:
     type: 2}
   shakeGen: {fileID: 0}
   lightningBall: {fileID: 1415026153237544}
+  iceWall: {fileID: 1307977623103276, guid: f362451ed374005498194e7698a8603d, type: 2}
 --- !u!114 &114117834407854508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1669,13 +1672,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2816cd0b3f9c9459e6009d38012e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
   minSwipeDist: 1
   lightningLayer:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 13312
   lightningDelay: 0.1
   lightningLifetime: 0.8
   lightningInit: 1.5
+  wallLifetime: 2
   rend: {fileID: 212647175595440944}
   healSpr: {fileID: 21300000, guid: dbf99a0146d97e84a8a9c48fa721f3b5, type: 3}
   convertSpr: {fileID: 21300000, guid: 3deeaf44621a88b4bb4afe111d51e646, type: 3}
@@ -1688,6 +1693,7 @@ MonoBehaviour:
     type: 2}
   shakeGen: {fileID: 0}
   lightningBall: {fileID: 1679278216439642}
+  iceWall: {fileID: 1307977623103276, guid: f362451ed374005498194e7698a8603d, type: 2}
 --- !u!114 &114145230489554516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1700,10 +1706,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  slot1: {fileID: 114117834407854508}
-  slot2: {fileID: 114042644215262110}
-  slot3: {fileID: 114787637192441668}
-  slot4: {fileID: 114295618916175400}
+  health: 0
+  slots:
+  - {fileID: 114117834407854508}
+  - {fileID: 114042644215262110}
+  - {fileID: 114787637192441668}
+  - {fileID: 114295618916175400}
 --- !u!114 &114295618916175400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1715,13 +1723,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2816cd0b3f9c9459e6009d38012e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
   minSwipeDist: 1
   lightningLayer:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 13312
   lightningDelay: 0.1
   lightningLifetime: 0.8
   lightningInit: 1.5
+  wallLifetime: 2
   rend: {fileID: 212996498274536102}
   healSpr: {fileID: 21300000, guid: dbf99a0146d97e84a8a9c48fa721f3b5, type: 3}
   convertSpr: {fileID: 21300000, guid: 3deeaf44621a88b4bb4afe111d51e646, type: 3}
@@ -1734,6 +1744,7 @@ MonoBehaviour:
     type: 2}
   shakeGen: {fileID: 0}
   lightningBall: {fileID: 1739012023216788}
+  iceWall: {fileID: 1307977623103276, guid: f362451ed374005498194e7698a8603d, type: 2}
 --- !u!114 &114787637192441668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1745,13 +1756,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2816cd0b3f9c9459e6009d38012e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeSpell: 0
   minSwipeDist: 1
   lightningLayer:
     serializedVersion: 2
-    m_Bits: 5120
+    m_Bits: 13312
   lightningDelay: 0.1
   lightningLifetime: 0.8
   lightningInit: 1.5
+  wallLifetime: 2
   rend: {fileID: 212838375482530558}
   healSpr: {fileID: 21300000, guid: dbf99a0146d97e84a8a9c48fa721f3b5, type: 3}
   convertSpr: {fileID: 21300000, guid: 3deeaf44621a88b4bb4afe111d51e646, type: 3}
@@ -1764,6 +1777,7 @@ MonoBehaviour:
     type: 2}
   shakeGen: {fileID: 0}
   lightningBall: {fileID: 1932132643766594}
+  iceWall: {fileID: 1307977623103276, guid: f362451ed374005498194e7698a8603d, type: 2}
 --- !u!198 &198110101493979460
 ParticleSystem:
   m_ObjectHideFlags: 1
