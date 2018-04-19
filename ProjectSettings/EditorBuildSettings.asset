@@ -4,7 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MainMenuSwipe.unity
-    guid: 3bf7ed02f76335144b8cf42e52629f20
+  m_Scenes: []

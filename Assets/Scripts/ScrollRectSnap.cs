@@ -24,7 +24,7 @@ public class ScrollRectSnap : MonoBehaviour {
 
 	void Update () {
 		for (int i = 0; i < subPanels.Length; i++) {
-			distances [i] = Mathf.Abs(center.transform.position.y - subPanels[i].transform.position.y);
+			distances [i] = Mathf.Abs (center.transform.position.y - subPanels [i].transform.position.y);
 		}
 
 		float minDistance = Mathf.Min(distances); //get the min distance in the array
@@ -32,20 +32,16 @@ public class ScrollRectSnap : MonoBehaviour {
 		for (int a = 0; a < subPanels.Length; a++) {
 			if (minDistance == distances [a]) {
 				minPanelNumber = a;
-				Debug.Log (minDistance);
-				Debug.Log (a);
 			}
 		}
 
 		if (!isDragging) {
 			LerpToPanel(minPanelNumber * -panelDistance);
-			Debug.Log ("Lerping");
 		}
-		
 	}
 
 	void LerpToPanel(int position){
-		float newY = Mathf.Lerp(panel.anchoredPosition.y, position, Time.deltaTime *10f);
+		float newY = Mathf.Lerp(panel.anchoredPosition.y, -position, Time.deltaTime *10f);
 		Vector2 newPosition = new Vector2 (panel.anchoredPosition.x, newY);
 		panel.anchoredPosition = newPosition;
 	}
