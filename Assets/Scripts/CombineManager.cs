@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombineManager : MonoBehaviour {
 
+    public PlayerStates state;
     Elements firstElement;
     public SlotManager slot1;
     public SlotManager slot2;

@@ -9,6 +9,8 @@ TagManager:
   - Fire
   - Water
   - Slot
+  - Altar_1
+  - Altar_2
   layers:
   - Default
   - TransparentFX
@@ -18,11 +20,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Element
+  - Slot
+  - Wall
+  - Altar_1
+  - Altar_2
   - 
   - 
   - 

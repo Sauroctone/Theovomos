@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class Controller: MonoBehaviour
 {
-    public PlayerStates state;
     Ray ray;
     RaycastHit hit;
     public Transform[] draggedElements;
     public float elementForce;
+    public LayerMask slotLayer;
+    public LayerMask elementsLayer;
     Vector3 prevPos3;
     Vector3 prevPos2;
     Vector3 prevPos1;
@@ -20,9 +21,9 @@ public class Controller: MonoBehaviour
     void Update()
     {
         //If the screen is touched
-        if (Input.touchCount > 0 && Input.touchCount < 3)
+        if (Input.touchCount > 0 && Input.touchCount < 3 && !isPaused)
         {
-            //Do this for every touch input - 10 max ?
+            //Do this for every touch input
             for (int i = 0; i < Input.touchCount; i++)
             {
                 //If the touch began
@@ -32,11 +33,11 @@ public class Controller: MonoBehaviour
                     ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
                     Debug.DrawRay(ray.origin, ray.direction * 15f, Color.red, .5f);
 
-                    if (Physics.Raycast(ray, out hit, 15f))
+                    if (Physics.Raycast(ray, out hit, 15f, slotLayer))
                     {
                         if (hit.collider.tag == "Slot")
                         {
-                            hit.transform.GetComponent<SlotManager>().UseSpell();
+                            hit.transform.GetComponent<SlotManager>().UseSpell(i);
                         }
                     }
                 }
@@ -44,27 +45,8 @@ public class Controller: MonoBehaviour
                 //If the touch is moving
                 if (Input.GetTouch(i).phase == TouchPhase.Moved)
                 {
-                    //If no element is selected
-                    if (draggedElements[i] == null)
-                    {
-                        //Raycast for an element under the touch, and select it
-                        ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
-                        Debug.DrawRay(ray.origin, ray.direction * 15f, Color.red, .5f);
-
-                        if (Physics.Raycast(ray, out hit, 15f))
-                        {
-                            if (hit.collider.tag == "Fire" || 
-                                hit.collider.tag == "Water" || 
-                                hit.collider.tag == "Air" || 
-                                hit.collider.tag == "Earth")
-                            {
-                                draggedElements[i] = hit.transform;
-                            }
-                        }
-                    }
-
                     //If an element is selected
-                    else
+                    if (draggedElements[i] != null)
                     {
                         //Convert the touch's current screen pos to world pos
                         touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
@@ -78,6 +60,25 @@ public class Controller: MonoBehaviour
                         //The element follows the touch
                         draggedElements[i].position = new Vector3(touchPos.x, touchPos.y, draggedElements[i].position.z);
                     }
+
+                    //If no element is selected
+                    else 
+                    {
+                        //Raycast for an element under the touch, and select it
+                        ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
+                        Debug.DrawRay(ray.origin, ray.direction * 15f, Color.red, .5f);
+
+                        if (Physics.Raycast(ray, out hit, 15f, elementsLayer))
+                        {
+                            if (hit.collider.tag == "Fire" || 
+                                hit.collider.tag == "Water" || 
+                                hit.collider.tag == "Air" || 
+                                hit.collider.tag == "Earth")
+                            {
+                                draggedElements[i] = hit.transform;
+                            }
+                        }
+                    }
                 }
 
                 //If the touch is lifted and an element was selected
@@ -90,8 +91,6 @@ public class Controller: MonoBehaviour
 
                     Vector3 direction = touchPos - prevPos3;
                     direction.z = 0f;
-
-                    print(direction.magnitude);
 
                     //Give force
                     draggedElements[i].GetComponent<Rigidbody>().AddForce(direction * elementForce);
