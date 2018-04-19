@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Controller: MonoBehaviour
 {
+    public PlayerStates state;
     Ray ray;
     RaycastHit hit;
     public Transform[] draggedElements;
@@ -12,15 +14,33 @@ public class Controller: MonoBehaviour
     Vector3 prevPos2;
     Vector3 prevPos1;
     Vector3 touchPos;
+    public bool isPaused;
+    public Button resumeButton;
 
     void Update()
     {
         //If the screen is touched
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.touchCount < 3)
         {
             //Do this for every touch input - 10 max ?
             for (int i = 0; i < Input.touchCount; i++)
             {
+                //If the touch began
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                {
+                    //Raycast for a spell icon under the touch, and send a call
+                    ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
+                    Debug.DrawRay(ray.origin, ray.direction * 15f, Color.red, .5f);
+
+                    if (Physics.Raycast(ray, out hit, 15f))
+                    {
+                        if (hit.collider.tag == "Slot")
+                        {
+                            hit.transform.GetComponent<SlotManager>().UseSpell();
+                        }
+                    }
+                }
+
                 //If the touch is moving
                 if (Input.GetTouch(i).phase == TouchPhase.Moved)
                 {
@@ -33,7 +53,13 @@ public class Controller: MonoBehaviour
 
                         if (Physics.Raycast(ray, out hit, 15f))
                         {
-                            draggedElements[i] = hit.transform;
+                            if (hit.collider.tag == "Fire" || 
+                                hit.collider.tag == "Water" || 
+                                hit.collider.tag == "Air" || 
+                                hit.collider.tag == "Earth")
+                            {
+                                draggedElements[i] = hit.transform;
+                            }
                         }
                     }
 
@@ -75,5 +101,24 @@ public class Controller: MonoBehaviour
                 }
             }
         }
+
+        if (Input.touchCount > 2 && !isPaused)
+        {
+            Pause();
+        }
+    }
+
+    void Pause()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        resumeButton.gameObject.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        resumeButton.gameObject.SetActive(false);
     }
 }
