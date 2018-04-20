@@ -701,7 +701,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 631742126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1677718168}
@@ -757,8 +757,9 @@ GameObject:
   - component: {fileID: 871868017}
   - component: {fileID: 871868019}
   - component: {fileID: 871868020}
+  - component: {fileID: 871868021}
   m_Layer: 5
-  m_Name: BasicSkin
+  m_Name: C3BasicSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -852,6 +853,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 800, y: 800}
   m_EdgeRadius: 0
+--- !u!114 &871868021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871868015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5decafd02c0144f9bca2b03822a12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1048507669
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,10 +874,10 @@ GameObject:
   - component: {fileID: 1048507670}
   - component: {fileID: 1048507672}
   - component: {fileID: 1048507671}
-  - component: {fileID: 1048507673}
   - component: {fileID: 1048507674}
+  - component: {fileID: 1048507673}
   m_Layer: 5
-  m_Name: BasicSkin
+  m_Name: C2BasicSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,10 +981,10 @@ GameObject:
   - component: {fileID: 1128114047}
   - component: {fileID: 1128114049}
   - component: {fileID: 1128114048}
-  - component: {fileID: 1128114050}
   - component: {fileID: 1128114051}
+  - component: {fileID: 1128114050}
   m_Layer: 5
-  m_Name: OptSkin1
+  m_Name: C1OptSkin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1078,6 +1090,7 @@ GameObject:
   - component: {fileID: 1141947011}
   - component: {fileID: 1141947014}
   - component: {fileID: 1141947015}
+  - component: {fileID: 1141947016}
   m_Layer: 5
   m_Name: ScrollPanelPlayer1
   m_TagString: Untagged
@@ -1231,6 +1244,41 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
+<<<<<<< HEAD
+=======
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 800, y: 800}
+  m_EdgeRadius: 1
+--- !u!50 &1141947016
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1141947009}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+>>>>>>> 9c3fbc650858a8566ea99e0c9ed8981600fd44b2
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -1390,8 +1438,9 @@ GameObject:
   - component: {fileID: 1346125997}
   - component: {fileID: 1346125999}
   - component: {fileID: 1346126000}
+  - component: {fileID: 1346126001}
   m_Layer: 5
-  m_Name: BasicSkin
+  m_Name: C4BasicSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1485,6 +1534,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 800, y: 800}
   m_EdgeRadius: 0
+--- !u!114 &1346126001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1346125995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd5decafd02c0144f9bca2b03822a12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602985373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,10 +1627,10 @@ GameObject:
   - component: {fileID: 1673548488}
   - component: {fileID: 1673548490}
   - component: {fileID: 1673548489}
-  - component: {fileID: 1673548491}
   - component: {fileID: 1673548492}
+  - component: {fileID: 1673548491}
   m_Layer: 5
-  m_Name: BasicSkin
+  m_Name: C1BasicSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1901,10 +1961,10 @@ GameObject:
   - component: {fileID: 1772060115}
   - component: {fileID: 1772060117}
   - component: {fileID: 1772060116}
-  - component: {fileID: 1772060118}
   - component: {fileID: 1772060119}
+  - component: {fileID: 1772060118}
   m_Layer: 5
-  m_Name: OptSkin2
+  m_Name: C1OptSkin2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2152,10 +2212,10 @@ GameObject:
   - component: {fileID: 2006619450}
   - component: {fileID: 2006619452}
   - component: {fileID: 2006619451}
-  - component: {fileID: 2006619453}
   - component: {fileID: 2006619454}
+  - component: {fileID: 2006619453}
   m_Layer: 5
-  m_Name: OptSkin1
+  m_Name: C2OptSkin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
